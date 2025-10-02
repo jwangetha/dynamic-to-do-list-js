@@ -1,4 +1,4 @@
-// Wait until the DOM is fully loaded
+// Ensure the DOM is fully loaded before running the script
 document.addEventListener("DOMContentLoaded", function () {
     // Select DOM elements
     const addButton = document.getElementById("add-task-btn");
@@ -21,32 +21,28 @@ document.addEventListener("DOMContentLoaded", function () {
         // Create remove button
         const removeBtn = document.createElement("button");
         removeBtn.textContent = "Remove";
-        removeBtn.className = "remove-btn";
+        removeBtn.className = "remove-btn"; // ✅ use className, not classList.add
 
-        // Add event listener for remove button
-        removeBtn.addEventListener("click", function () {
+        // Assign onclick event for removing the task
+        removeBtn.onclick = function () {
             taskList.removeChild(li);
-        });
+        };
 
-        // Append remove button and task to the list
+        // Append button to li, then li to task list
         li.appendChild(removeBtn);
         taskList.appendChild(li);
 
-        // Clear input field
+        // Clear the input field
         taskInput.value = "";
     }
 
-    // Event listener for button click
+    // Event listener for Add Task button
     addButton.addEventListener("click", addTask);
 
-    // Event listener for pressing Enter
+    // Event listener for Enter key
     taskInput.addEventListener("keypress", function (event) {
         if (event.key === "Enter") {
             addTask();
         }
     });
-
-    // Invoke addTask on DOMContentLoaded (for testing requirements)
-    // This will add a sample empty task, you can comment/remove if not needed
-    // addTask();
 });
